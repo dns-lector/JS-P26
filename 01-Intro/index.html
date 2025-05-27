@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS - Intro</title>
+</head>
+<body>
+    <h1>Вступ до JavaScript</h1>
+    <p>
+        У JavaScript ';' вживається як роздільник (на відміну
+        від ряду мов, де це завершення команди). Відповідно,
+        не є обов'язковою і може замінюватись розривом рядка. 
+        У той же час, можливі неочікувана поведінка, коли 
+        одна команда, розділена на декілька рядків, перетворюється
+        на різні команди. Для запобігання цього вважається
+        традиційним а) брати такі інструкції у дужки, б) не розривати
+        рядки так, щоб команда була завершеною
+    </p>
+    <p>Неправильно: <code> return 3<br>+ 2;</code></p>
+    <p>Неправильно: <code> return<br>3 + 2;</code></p>
+    <p>Правильно: <code> return (3<br>+ 2);</code></p>
+    <p>Правильно: <code> return 3 +<br>2;</code></p>
+    <p id="out"></p>
+    <p id="out-block"></p>
+    <p id="out-block-2"></p>
+    <p id="out-block-3"></p>
+    <script>
+        // Введення/виведення
+        console.log("Hello, World!");  // а) консоль розробника - тільки для debug
+        // alert("Hello, world");      // б) модальні діалоги
+        // в) в елементи сторінки
+        out.innerText = "Hello, World!";   // якщо елемент має id, то 
+        // утворюється змінна з таким саме іменем. Даний підхід вважається
+        // нерекомендованим, тому ідентифікатори прийнято задавати у 
+        // kebab-style, який не дозволяється для іменування змінних.
+        const outBlock = document.getElementById("out-block");
+        if(outBlock) {   // неявне перетворення до логічного типу, !!outBlock - явне
+            outBlock.innerText = "Hello, World!"; 
+        }
+        else {
+            throw "Element #out-block not found";  // Динамічна типізація, зокрема,
+            // дозволяє передавати у throw довільний об'єкт
+            // назву поточного типу даних можна дізнатись оператором typeof 
+        }
+        // string
+        x = "The string";    // глобальна змінна, видима в усій сторінці
+        x = 'Second value';  // відмінностей між "" та '' немає
+        y = `The ${x}`;      // інтерпольований рядок
+        // numbers
+        n = 100500;          // int
+        n = 100000000000000000000000n;  // big number
+        n = 2n ** 256n;      // ** - піднесення до ступеня
+        outBlock.innerHTML = `2<sup>256</sup> = ${n}`;
+        // нецілі числа - 56bit на число, решта - спецзначення NaN, -0, Infinity...
+        // !! загалом 64 біти, що може неправильно сприйматись при сумісності
+        //    з іншими мовами, зокрема SQL
+        // + традиційне округлення нескінченних дробів (у бінарній системі)
+        // 0.1 + 0.2 -> 0.30000000000000004
+        // 0.1 + 0.2 == 0.3  -> false
+
+        // оператори (управління)
+        if(y.length % 2 == 0) {
+            outBlock.innerHTML += `<br/>Довжина рядка '${y}' парна`;
+        }
+        else {
+            outBlock.innerHTML += `<br/>Довжина рядка '${y}' непарна`;
+        }
+        // switch, ternary, for(i), while,
+        let arr = [1,2,3,4,5];   // let - з локалізацією (не видиме за блоком)
+        outBlock.innerHTML += '<br/>';
+        for(let element of arr) {   // for-of -> foreach
+            outBlock.innerHTML += element + ' ';
+        }
+        outBlock.innerHTML += '<br/>';
+        arr.forEach(element => outBlock.innerHTML += element + ' ');
+        // головним недоліком HTML-JS є те, що HTML повністю перезбирається
+        // якщо змінюється хоча б один з його елементів. 
+        // У даному разі перезбирання (всієї сторінки) відбувається 
+        // з кожною операцією, що змінює outBlock.innerHTML
+
+        const outBlock2 = document.getElementById("out-block-2");
+        if(!outBlock2) throw "Element #out-block-2 not found";  // 1 інструкція - можна без {}
+        // гарна ілюстрація проблем з перебудовою HTML є задача 
+        // виведення таблиць: вивести таблицю |індекс|значення| по масиву
+        outBlock2.innerHTML = "<table border=1><tr><th>індекс</th><th>значення</th></tr>";
+        /// після цієї інструкції HTML сам "виправить" код, закривши тег </table>
+        for(let i = 0; i < arr.length; i++) {
+            outBlock2.innerHTML += `<tr><td>${i}</td><td>${arr[i]}</td></tr>`;
+        }
+        outBlock2.innerHTML += "</table>";
+
+        var prefix = prompt("Prefix for values");
+
+        // Вимога - формувати HTML як окремий ресурс (змінну) і тільки повний 
+        // код додавати до сторінки.
+        const outBlock3 = document.getElementById("out-block-3");
+        if(!outBlock3) throw "Element #out-block-3 not found";  
+        var html = "<table border=1><tr><th>індекс</th><th>значення</th></tr>";
+        for(let i = 0; i < arr.length; i++) {
+            html += `<tr><td>${i}</td><td>${prefix + arr[i]}</td></tr>`;
+        }
+        html += "</table>";
+        outBlock3.innerHTML = html;
+    </script>
+</body>
+</html>
