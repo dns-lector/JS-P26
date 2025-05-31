@@ -1,0 +1,9 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+.product {
+    border: 2px solid lightgray;
+    margin: 5px;
+    padding: 5px;
+}
