@@ -12,6 +12,20 @@
 <body>
     <div class="container">
         <h1>Асинхронні запити. AJAX. JSON.</h1>
+        
+        <button id="load-moon-phase" class="btn btn-secondary">Фаза місяця</button>
+        <div id="moon-phase"></div>
+
+        <button id="load-rates" class="btn btn-primary">Завантажити курс</button>
+        <div class="row justify-content-center my-2">
+            <div class="col-md-6">
+            <div class="search-container">
+                <input id="search-rate" type="text" class="form-control search-input" placeholder="Search...">
+                <i class="bi bi-search search-icon"></i>
+            </div>
+            </div>
+        </div>
+        <div id="rates"></div>        
         <p>
             JSON - JavaScript Object Notation - спосіб представлення даних у 
             вигляді об'єкту мовою JavaScript.
@@ -53,6 +67,16 @@
         </p>
         <p>Promise - об'єкт JavaScript, що є аналогом Task (у C#), який відповідає
             за виконання асинхронних задач.
+        </p>
+        <p>
+            CORS / CORP (Cross Origin Resource Sharing / Policy) - домовленості щодо 
+            обміну даними між різними джерелами (доменами). Стосується тільки fetch-запитів,
+            оскільки від них запит формується як від іншого сайту. Тоді як запит
+            браузера - це запит клієнта (не іншого сайту).
+            Policy (обмеження) стосується того, що відповідь ресурсу має повідомити про 
+            можливість її використання сторонніми ресурсами шляхом встановлення 
+            спеціальних заголовків, зокрема, 'Access-Control-Allow-Origin'. 
+            Якщо заголовку немає, то ресурс повинен ігнорувати (блокувати) одержані дані.
         </p>
         <hr/>
         <button class="btn btn-success" id="pause-btn">Pause</button>
